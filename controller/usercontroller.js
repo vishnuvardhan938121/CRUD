@@ -10,8 +10,8 @@ const createuser = async (req, res) => {
             return res.status(500).json({ message: "Please fill the fields" });
         }
 
-        // ❌ Mistake: You forgot to await + wrong check
-        const existingemail = await User.findOne({ email: req.body.email }); // ✅ Corrected
+        
+        const existingemail = await User.findOne({ email: req.body.email }); 
         if (existingemail) {
             return res.status(500).json({ message: "Email already exists" });
         }
@@ -27,7 +27,7 @@ const createuser = async (req, res) => {
 const getallusers = async (req, res) => {
     try {
         const allusers = await User.find();
-        if (allusers.length === 0) { // ✅ Check if empty array
+        if (allusers.length === 0) { 
             return res.status(404).json({ message: "No users found" });
         }
         res.status(200).json(allusers);
@@ -51,7 +51,7 @@ const Updateuserput = async (req, res) => {
             { name, email, password, Mobile },
             {
                 new: true,
-                overwrite: true, // ✅ Overwrites the document
+                overwrite: true, 
             }
         );
 
@@ -90,7 +90,7 @@ const Updateuserpatch = async (req, res) => {
 const deleteuser = async (req, res) => {
     try {
         const userid = req.params.id;
-        const deleteduser = await User.findByIdAndDelete(userid); // ✅ Corrected spelling
+        const deleteduser = await User.findByIdAndDelete(userid); 
 
         if (!deleteduser) {
             return res.status(404).json({ message: "User not found" });
